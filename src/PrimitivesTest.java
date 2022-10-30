@@ -44,4 +44,27 @@ class PrimitivesTest {
 		return number % 10;	
 		}
 
+	@Test
+	void getBitValueTest() {
+		long num = 0x3ab7f5; //001110101011011111_1_10101
+		assertEquals(1, BitOperations.getBitValue(num, 5));
+		assertEquals(0, BitOperations.getBitValue(num, 11));
+		assertEquals(0, BitOperations.getBitValue(num, 1));
+		assertEquals(1, BitOperations.getBitValue(num, 2));
+		assertEquals(-1, BitOperations.getBitValue(num, 64));
+		assertEquals(-1, BitOperations.getBitValue(num, -1));
+		
+	}
+	@Test 
+		void setBitValueTest() {
+		long number = 0x3ab7f5; //001110101011011111_1_10101
+		assertEquals(0x3ab7d5, BitOperations.setBitValue(number, 5, false));	
+		assertEquals(0x3ab7f5, BitOperations.setBitValue(number, 5, true));
+	}
+	@Test 
+		void revertBitValueTest() {
+		long number = 0x3ab7f5; //001110101011011111_1_10101
+		assertEquals(0x3ab7d5, BitOperations.revertBitValue(number, 5));	
+		assertEquals(0x3ab7f4, BitOperations.revertBitValue(number, 0));
+	}
 }
