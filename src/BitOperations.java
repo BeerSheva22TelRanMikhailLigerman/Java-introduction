@@ -43,8 +43,8 @@ private static boolean checkNbit(int nBit) {
 			res = mask | number; //set value true to nBit
 			} else {
 			long mask = 0xffffff; //long mask = 0xffffff; //all bits are 1
-			long mask2 = 1 << nBit; //all bits are 0 except bit with number nBit //all bits are 1 except bit with number nBit
-			mask = mask ^ mask2;
+			long mask2 = 1 << nBit; //all bits are 0 except bit with number nBit 
+			mask = mask ^ mask2; //all bits are 1 except bit with number nBit!!
 			res = mask & number;
 			}
 			}
