@@ -4,6 +4,8 @@
  *
  */
 public class BitOperations {
+private static final int N_BITS = 64;
+
 /**
  * 
  * @param number - any number
@@ -13,19 +15,24 @@ public class BitOperations {
 	static public int getBitValue(long number, int nBit) {
 		int res = -1;
 	if (checkNbit(nBit)) {
-		long mask = 1 << nBit; //all bits are 0 except bit with number nBit
-		if ((number & mask) > 0) {
+		long mask = getMask(nBit); //all bits are 0 except bit with number nBit
+	/*	if ((number & mask) > 0) {
 			res = 1;
 		} else {
-			res = 0;
-		}
+			res = 0; 	}
+	*/
+	res = (number & mask) == 0 ? 0 : 1 ;
 	}
 	return res;
 	}
+
+private static long getMask(int nBit) {
+	return 1l << nBit;
+}
 	
 private static boolean checkNbit(int nBit) {
 	
-	return nBit < 64 && nBit >= 0;
+	return nBit < N_BITS && nBit >= 0;
 }
 
 /**
@@ -38,6 +45,12 @@ private static boolean checkNbit(int nBit) {
 	static public long setBitValue(long number, int nBit, boolean value) {
 		long res = -1;
 		if (checkNbit(nBit)) {
+			long mask = getMask(nBit);
+			res = value ? number | mask : number & ~mask;
+		}
+		
+	/*
+		{
 			if (value == true) {
 			long mask = 1 << nBit; //all bits are 0 except bit with number nBit
 			res = mask | number; //set value true to nBit
@@ -48,8 +61,9 @@ private static boolean checkNbit(int nBit) {
 			res = mask & number;
 			}
 			}
-		
-		return res;
+		*/
+				return res;
+	
 	}
 	
 	/**
@@ -65,7 +79,29 @@ private static boolean checkNbit(int nBit) {
 			res = mask ^ number;
 			}
 		
+		return res;	}
+	
+	
+	//03.11.2022 lesson 5
+	
+	static public int leadingZeros(long number) { //кол-во нулей до единицы
+		int res = 0;
+		int nBit = N_BITS - 1;
+		while(nBit >= 0 && getBitValue(number, nBit) == 0) {
+			nBit --;
+			res ++;
+		}
 		return res;
 	}
+	
+	public static int onesInNumber(long number) { //кол-во единиц в числе
+		int res = 0;
+		int nBit = N_BITS - 1;
+		for (int i = 0; i <= nBit; i++) {
+			res += getBitValue(number, i);		//вместо цикла  if (getBitValue(number, i) == 1 {res++;}
+		}
+		return res;
+	}
+	
 	
 }

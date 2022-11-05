@@ -36,6 +36,8 @@ class PrimitivesTest {
 	return number / 100 % 10;	
 	}
 	
+	@Test
+	@Disabled
 	private int getSecondDigit(int number) {
 		return number / 10 % 10;	
 		}
@@ -45,6 +47,7 @@ class PrimitivesTest {
 		}
 
 	@Test
+	@Disabled
 	void getBitValueTest() {
 		long num = 0x3ab7f5; //001110101011011111_1_10101
 		assertEquals(1, BitOperations.getBitValue(num, 5));
@@ -56,15 +59,57 @@ class PrimitivesTest {
 		
 	}
 	@Test 
+	@Disabled
 		void setBitValueTest() {
 		long number = 0x3ab7f5; //001110101011011111_1_10101
 		assertEquals(0x3ab7d5, BitOperations.setBitValue(number, 5, false));	
 		assertEquals(0x3ab7f5, BitOperations.setBitValue(number, 5, true));
 	}
 	@Test 
+	@Disabled
 		void revertBitValueTest() {
 		long number = 0x3ab7f5; //001110101011011111_1_10101
 		assertEquals(0x3ab7d5, BitOperations.revertBitValue(number, 5));	
 		assertEquals(0x3ab7f4, BitOperations.revertBitValue(number, 0));
 	}
+	
+	//03.11.2022 lesson 5
+	
+	@Test
+	@Disabled
+		void onesInNumberTest() {
+		assertEquals(1, BitOperations.onesInNumber(1));
+		assertEquals(0, BitOperations.onesInNumber(0));
+		assertEquals(3, BitOperations.onesInNumber(7));
+		assertEquals(3, BitOperations.onesInNumber(100));
+	}
+	
+	
+	//Home Work 03.11.2022
+	
+	@Test
+	void digitsNumberTest() {
+	assertEquals(1, Numbers.getNdigits(0));
+	assertEquals(1, Numbers.getNdigits(1));
+	assertEquals(5, Numbers.getNdigits(12345));
+	}
+
+	@Test 
+	void leadingZerosTest() {
+	assertEquals(63, BitOperations.leadingZeros(1));
+	assertEquals(64, BitOperations.leadingZeros(0));
+	assertEquals(60, BitOperations.leadingZeros(10));
+	}
+	
+	
+	@Test
+	void isHappyNumberTest() {
+		assertEquals(true, Numbers.isHappyNumber(123321));
+		assertEquals(false, Numbers.isHappyNumber(123324));
+		assertEquals(false, Numbers.isHappyNumber(12345));
+		assertEquals(false, Numbers.isHappyNumber(1234567));
+	}
+	
+	
+	
 }
