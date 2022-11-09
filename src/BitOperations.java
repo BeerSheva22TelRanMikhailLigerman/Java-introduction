@@ -15,12 +15,8 @@ private static final int N_BITS = 64;
 	static public int getBitValue(long number, int nBit) {
 		int res = -1;
 	if (checkNbit(nBit)) {
-		long mask = getMask(nBit); //all bits are 0 except bit with number nBit
-	/*	if ((number & mask) > 0) {
-			res = 1;
-		} else {
-			res = 0; 	}
-	*/
+		long mask = getMask(nBit); 	//all bits are 0 except bit with number nBit
+	
 	res = (number & mask) == 0 ? 0 : 1 ;
 	}
 	return res;

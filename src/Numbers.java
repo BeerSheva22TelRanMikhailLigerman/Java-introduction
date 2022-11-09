@@ -1,6 +1,9 @@
 //03.11.2022 lesson 5
 
 public class Numbers {
+	
+public static final int N_HAPPY_NUMBER_DIGITS = 6;
+
 public static int getNdigits(long number) {
 	int res = 0;
 	do {
@@ -12,26 +15,44 @@ public static int getNdigits(long number) {
 }
 
 public static boolean isHappyNumber(int number) {
-	Boolean chekResult = false;
-	if (number > 99999 && number < 1000000 ) {  	//check number contains 6 digits
-	int partLeft = 0;
-	int partRight = 0;
-	for (int i = 1; i <= 100000; i *=10) {
-		if (i <= 100) { partRight += number / i % 10; }		//calculate the sum of the 1st three digits
-		else { partLeft += number / i % 10; }				//calculate the sum of the second three digits
-		}
-			/*								old solution
-			int digit1 = number % 10;						//check 1st digit
-			int digit2 = number / 10 % 10;					//check 2st digit
-			int digit3 = number / 100 % 10;					//check 3st digit
-			int digit4 = number / 1000 % 10;				//check 4st digit
-			int digit5 = number / 10000 % 10;				//check 5st digit
-			int digit6 = number / 100000 % 10;				//check 6st digit
-			chekResult = ((digit1 + digit2 + digit3) == (digit4 + digit5 + digit6));
-			*/
-	chekResult = partLeft == partRight;
+	boolean res = false;
+	number = Math.abs(number);
+	if (getNdigits(number) == N_HAPPY_NUMBER_DIGITS) {
+		int halfDigits = N_HAPPY_NUMBER_DIGITS / 2;
+		int numberPartDivider = (int) Math.pow(10, halfDigits);
+		int sumFirstPart = getSumDigits(number / numberPartDivider);
+		res = sumFirstPart == getSumDigits(number % numberPartDivider);
 	}
-	return chekResult;
+	return res;
+	
+	
+		
+}
+
+public static int getSumDigits(int number) {
+	int res = 0;
+	do {
+		res += (number % 10);
+		number /= 10;
+	} while (number != 0);
+	return res;
+}
+
+public static int[] getArrayFromDigit(int number) {   //from digit to array
+	int res[] = new int[getNdigits(number)];
+	for (int i = res.length - 1; i >= 0; i--) {
+		res[i] = number % 10;
+		number /= 10;
+	}
+	return res;
+}
+
+public static int getNumberFromDigits(int[] digits) {   //from array to digit
+	int res = 0;
+	for (int i = 0; i < digits.length; i++) {
+		res = res * 10 + digits[i];
+	}
+	return res;
 }
 
 }
