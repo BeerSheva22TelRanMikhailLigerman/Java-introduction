@@ -129,12 +129,14 @@ class PrimitivesTest {
 	}
 	
 	@Test
+	@Disabled
 	void addsNumberToArrayTest() {
 		int[] array = new int[] {1, 2, 3, 4};
 		assertArrayEquals(array, MyArrays.addsNumber(new int[] {1, 2, 3}, 4));
 	}
 	
 	@Test
+	@Disabled
 	void removeNumberFromArrayTest() {
 		int[] array = new int[] {1, 2, 3, 4};
 		assertArrayEquals(new int[] {2, 3, 4}, MyArrays.removeNumber(array, 0));
@@ -145,13 +147,17 @@ class PrimitivesTest {
 	}
 		
 	@Test
+	@Disabled
 	void insertSortedTest() {
 		int[] array = new int[] {10, 20, 30, 40, 50};
 		assertArrayEquals(new int[] {10, 20, 25, 30, 40, 50}, MyArrays.insertSorted(array, 25));
 		assertArrayEquals(new int[] {0, 10, 20, 30, 40, 50}, MyArrays.insertSorted(array, 0));
+		assertArrayEquals(new int[] {10, 20, 30, 40, 50, 60}, MyArrays.insertSorted(array, 60));
+		
 	}
 	
 	@Test
+	@Disabled
 	void verifyID() {
 		assertTrue(IsraelIdentity.verify(346820574));
 		assertFalse(IsraelIdentity.verify(346820000));
@@ -159,10 +165,77 @@ class PrimitivesTest {
 	}
 		
 	@Test 
+	@Disabled
 	void generateID () {
 		assertTrue(IsraelIdentity.verify(IsraelIdentity.generateRandomID()));	
 	}
 	
 	
+	@Test
+	@Disabled
+	void binarySearchTest() {
+		int[] array = new int[] {10, 20, 30, 40, 50};
+		int[] array2 = new int[] {10, 20, 20, 20, 50};
+		assertEquals(-1, MyArrays.binarySearch(array, 0));
+		assertEquals(0, MyArrays.binarySearch(array, 10));
+		assertEquals(4, MyArrays.binarySearch(array, 50));
+		assertEquals(-1, MyArrays.binarySearch(array, 51));
+		assertEquals(-1, MyArrays.binarySearch(array, 15));
+		assertEquals(2, MyArrays.binarySearch(array2, 20));
+				
+	}
+	
+	//Home Work lesson 7 10.11.2022
+	
+	@Test
+	void binarySearchFirstDigit() {
+		assertEquals(0, MyArrays.binarySearchFirstDigit((new int[] {10, 10, 10, 40, 50, 60}), 10));
+		assertEquals(2, MyArrays.binarySearchFirstDigit((new int[] {10, 20, 30, 30, 30, 60}), 30));
+		assertEquals(4, MyArrays.binarySearchFirstDigit((new int[] {10, 20, 30, 40, 50, 50}), 50));
+	}
+	
+	@Test
+	void isOneSwapTestFalse() {
+		int ar1[] = { 1, 2, 3, 10, -1, 5, 6 };
+		int ar2[] = { 1, 2, 3, 4, 5, 10 };
+		int ar3[] = { 5, 1, 2, 4, 6, 10 };
+		int ar4[] = { 1, 5, 2, 4, 3, 10 };
+		int ar5[] = { 1, 3, 2, 5, 4, 10, 8 };
+		int ar6[] = {1, 3, 20, 4, 5, 6, 10};
+		int ar7[] = {1, 3, 20, 4, 5, 11, 2};
+		assertFalse(MyArrays.isOneSwapForSorted(ar1));
+		assertFalse(MyArrays.isOneSwapForSorted(ar2));
+		assertFalse(MyArrays.isOneSwapForSorted(ar3));
+		assertFalse(MyArrays.isOneSwapForSorted(ar4));
+		assertFalse(MyArrays.isOneSwapForSorted(ar5));
+		assertFalse(MyArrays.isOneSwapForSorted(ar6));
+		assertFalse(MyArrays.isOneSwapForSorted(ar7));
+		}
+	
+	@Test
+	void isOneSwapTestTrue() {
+		int ar1[] = { 10, 2, 3, 4, 1 };
+		int ar2[] = { 1, 2, 4, 3, 5, 10 };
+		int ar3[] = { 1, 2, 3, 10, 5, 4 };
+		int ar4[] = { 1, 5, 3, 4, 2, 10 };
+		int ar5[] = { 1, 2, 3, 4, 10, 5 };
+		int ar6[] = { 2, 1, -3, 4, 5, 10 };
+		int ar7[] = { 3, 2, 1, 4, 5, 6 };
+		assertTrue(MyArrays.isOneSwapForSorted(ar1));
+		assertTrue(MyArrays.isOneSwapForSorted(ar2));
+		assertTrue(MyArrays.isOneSwapForSorted(ar3));
+		assertTrue(MyArrays.isOneSwapForSorted(ar4));
+		assertTrue(MyArrays.isOneSwapForSorted(ar5));
+		assertTrue(MyArrays.isOneSwapForSorted(ar6));
+		assertTrue(MyArrays.isOneSwapForSorted(ar7));
+		}
+
+	@Test
+	void bubbleSortTest() {
+		assertArrayEquals(new int[] {10, 20, 25, 30, 40, 50}, MyArrays.bubbleSort(new int[] {10, 20, 25, 30, 50, 40}));	
+		assertArrayEquals(new int[] {10}, MyArrays.bubbleSort(new int[] {10}));
+		assertArrayEquals(new int[] {}, MyArrays.bubbleSort(new int[] {}));
+		
+	}
 	
 }

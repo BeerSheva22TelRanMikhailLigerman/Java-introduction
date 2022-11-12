@@ -55,4 +55,7 @@ public static int getNumberFromDigits(int[] digits) {   //from array to digit
 	return res;
 }
 
+public static long getRandomNumber(long min, long max) {
+	return (long) (min + Math.random() * (max - min + 1));
+}
 }

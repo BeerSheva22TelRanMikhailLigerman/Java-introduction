@@ -28,8 +28,9 @@ public class SportlotoAppl {
 		} while (BitOperations.getBitValue(mask, res) == 1);
 		mask = BitOperations.setBitValue(mask, res, true);
 	return res;
-	
 	}
+	
+	
 	
 	
 	
