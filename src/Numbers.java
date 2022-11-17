@@ -38,7 +38,7 @@ public static int getSumDigits(int number) {
 	return res;
 }
 
-public static int[] getArrayFromDigit(int number) {   //from digit to array
+public static int[] getArrayFromDigit(int number) {   //from int digit to array
 	int res[] = new int[getNdigits(number)];
 	for (int i = res.length - 1; i >= 0; i--) {
 		res[i] = number % 10;

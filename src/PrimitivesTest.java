@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Disabled;
@@ -221,6 +222,8 @@ class PrimitivesTest {
 		int ar5[] = { 1, 2, 3, 4, 10, 5 };
 		int ar6[] = { 2, 1, -3, 4, 5, 10 };
 		int ar7[] = { 3, 2, 1, 4, 5, 6 };
+		int ar8[] = {1, 2, 2, 3, 3, 4, 4, 4, 3, 5};
+		int ar9[] = {1, 2, 4, 3, 3, 3, 5};
 		assertTrue(MyArrays.isOneSwapForSorted(ar1));
 		assertTrue(MyArrays.isOneSwapForSorted(ar2));
 		assertTrue(MyArrays.isOneSwapForSorted(ar3));
@@ -228,6 +231,8 @@ class PrimitivesTest {
 		assertTrue(MyArrays.isOneSwapForSorted(ar5));
 		assertTrue(MyArrays.isOneSwapForSorted(ar6));
 		assertTrue(MyArrays.isOneSwapForSorted(ar7));
+		assertTrue(MyArrays.isOneSwapForSorted(ar8));
+		assertTrue(MyArrays.isOneSwapForSorted(ar9));
 		}
 
 	@Test
