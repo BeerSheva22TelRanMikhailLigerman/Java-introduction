@@ -34,25 +34,20 @@ public class Strings {
 		return res;
 	}
 	
-	public static boolean isAnagram2(String str1, String str2) {
-		boolean res = false;
-		if (str1.length() == str2.length() && str1.length() > 1) {
-		char[] str1Arr = str1.toCharArray();
-		char[] str2Arr = str2.toCharArray();
-		boolean[] helper = new boolean[Character.MAX_VALUE];
-		int nonDifCounter = 0;
-			
-			for (int i = 0; i < str1Arr.length; i++) {
-				helper[(int)str1Arr[i]] = !helper[(int)str1Arr[i]];
-				helper[(int)str2Arr[i]] = !helper[(int)str2Arr[i]];
-				if (str1Arr[i] != str2Arr[i]) {nonDifCounter++;}
-			} 
-			for (int i = 0; i < helper.length; i++) {
-				res = res | helper[i];
-			}
-			res = !res && nonDifCounter != 0;
+	public static void sortStringNumbers(String[] str) {
+		
+		int[] helper = new int[256];
+		for (int i = 0; i < str.length; i++) {
+			helper[Byte.valueOf(str[i]) + 128]++;
 		}
-		return res;
+		int strPosition = 0;
+		for (int i = 0; i < helper.length; i++) {
+			while (helper[i] != 0) {
+				str[strPosition] = Integer.toString(i - 128);
+				strPosition++;
+				helper[i]--;
+			}
+		}
 	}
 	
 }
