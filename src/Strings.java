@@ -50,4 +50,16 @@ public class Strings {
 		}
 	}
 	
+	public static String javaNameExp() {
+		return "[a-zA-Z$][\\w$]*|_[\\w$]+";
+	}
+	
+	public static String ipV4Octet( ) {
+		return "\\d?\\d?|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?";
+	}
+	
+	public static String ipV4( ) {
+		return "(\\d?\\d?\\.|1\\d?\\d?\\.|2[0-4]?\\d?\\.|25[0-5]?\\.){3}(\\d?\\d?|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?)";
+	}
+	
 }
