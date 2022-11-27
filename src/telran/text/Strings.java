@@ -1,3 +1,6 @@
+package telran.text;
+
+import java.util.Arrays;
 
 public class Strings {
 
@@ -52,14 +55,109 @@ public class Strings {
 	
 	public static String javaNameExp() {
 		return "[a-zA-Z$][\\w$]*|_[\\w$]+";
-	}
-	
+	} 
+	//regular expression for IP v4 octed
 	public static String ipV4Octet( ) {
-		return "\\d?\\d?|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?";
+		return "([01]?\\d\\d?|2([0-4]\\d|5[0-5]))";
+		 
+	}
+	//interpolation of regular expression
+	public static String ipV4( ) {
+		String octetExp = ipV4Octet();
+		return String.format("(%1$s\\.){3}%1$s", octetExp);
 	}
 	
-	public static String ipV4( ) {
-		return "(\\d?\\d?\\.|1\\d?\\d?\\.|2[0-4]?\\d?\\.|25[0-5]?\\.){3}(\\d?\\d?|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?)";
+	//lesson 11
+	private static String arithmeticExpression() {
+		String operatorExp = operator();
+		String operandExp = operand();
+		
+		
+		return String.format("\\(*%1$s(%2$s\\(*%1$s\\)*)*", operandExp, operatorExp);		//checking only for the correct location of braces and according javaName
 	}
+
+	private static String operand() {
+		// FIXME
+		// adds possibility of using Java variables
+		return "(\\d+\\.?\\d*|\\.\\d+|[a-zA-Z$][\\w$]*|_[\\w$]+)";
+	}
+	
+	
+
+	public static boolean isArithmeticExpression(String expression) {
+		expression = expression.replaceAll("\\s+", "");
+		return expression.matches(arithmeticExpression());
+	}
+
+	private static String operator() {
+
+		return "([-+*/])";
+	}
+
+	/**
+	 * 
+	 * @param expression
+	 * @param values
+	 * @param namesSorted - variable names sorted
+	 * @return computed value of a given expression or Double.NaN
+	 */
+	public static Double computeArithmenticExpression(String expression, double values[], String names[]) {	
+		// 10 (* 2)
+		// 10 * 2(())
+		Double res = Double.NaN;
+		if (isArithmeticExpression(expression) && checkBraces(expression)) {	//full braces checking
+			expression = expression.replaceAll("[\\s()]+", "");					//braces and non printable symbols removed from expression!
+			String operands[] = expression.split(operator());
+			String operators[] = expression.split(operand());
+			res = getOperandValue(operands[0], values, names);
+			int index = 1;
+			while (index < operands.length && !res.isNaN()) {
+				double operandValue = getOperandValue(operands[index], values, names);
+				res = computeOperation(res, operandValue, operators[index]);
+				index++;
+			}
+			
+		}
+
+		return res;
+	}
+
+	private static Double computeOperation(Double operand1, double operand2, String operator) {
+		Double res = Double.NaN;
+		if(!Double.isNaN(operand2)) {
+			switch(operator) {
+			case "+": res = operand1 + operand2; break;
+			case "-": res = operand1 - operand2; break;
+			case "*": res = operand1 * operand2; break;
+			case "/": res = operand1 / operand2; break;
+			default: res = Double.NaN;
+			}
+		}
+		return res;
+	}
+
+	private static Double getOperandValue(String operand, double[] values, String[] names) {
+		double res = Double.NaN;
+		if (operand.matches("\\d+\\.?\\d*|\\.\\d+")) {res =  Double.parseDouble(operand);}
+		if (operand.matches(javaNameExp())) {
+			int indexName = Arrays.binarySearch(names, operand);
+			if (indexName >= 0) {res = values[indexName];}
+			
+		}
+		return res;
+	}
+
+	public static boolean checkBraces(String expression) {				//parity check only
+		char[] halper = expression.toCharArray();
+		int bracesCounter = 0;
+		for (int i = 0; i < halper.length; i++) {
+			if (expression.charAt(i) == '(') {bracesCounter++;}
+			if (expression.charAt(i) == ')') {bracesCounter--;}
+			
+		}
+		return bracesCounter == 0 ? true : false;
+	}
+	
+	
 	
 }
